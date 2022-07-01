@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos.css}">
+     <!--Import Google Icon Font-->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+     <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Disquera</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/album/form">Album</a></li>
+            <li><a href="/cancion/form">Cancion</a></li>
+            <li><a href="/genero/form">Genero</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container-fluid">
+        <h1 th:text="${accion}"></h1>
+        <form th:action="@{/album/add}" th:object="${album}" method="post">
+            <div>
+                <label for="nombre_album">Nombre Album</label>
+                <input type="text" class="form-control" id="nombre_album" th:field="*{nombre_album}">
+                <div class="form-text text-danger" th:if="${#fields.hasErrors('nombre_album')}" th:errors="*{nombre_album}"></div>
+            </div>
+
+            <div>
+                <label for="ani_publicacion">Año en el que se publico el Album</label>
+                <input type="text" class="form-control" id="ani_publicacion" th:field="*{ani_publicacion}">
+                <div class="form-text text-danger" th:if="${#fields.hasErrors('ani_publicacion')}" th:errors="*{ani_publicacion}"></div>
+            </div>
+
+            <div class="input-field" >
+                <label for="id_genero">Id Genero</label>
+                <select class="browser-default" id="genero" th:field="*{genero}">
+                    <option th:each="g:${generos}" th:value="${g.id_genero}" th:text="g.id_genero">Genero</option>
+                </select>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="estado_album" th:field="*{estado_album}">
+                <label class="form-check-label" for="estado_album">Activo</label>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
